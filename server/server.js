@@ -59,3 +59,11 @@ let users={};
 io.on('connection',(socket)=>{
   console.log(`user cnnected {socket.id}`)
 })
+socket.on('join',(username)=>{
+  users[socket.id]=username;
+  io.emit('userlist',Object.values(users));
+})
+socket.on('sendMessage',({message,sender})=>{
+  io.emit('receiveMessage',({message,sender}))
+})
+
